@@ -1,0 +1,126 @@
+.myhero {
+  min-height: 30vh;
+}
+
+.myhero .logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+}
+.myhero .socials {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+}
+.myhero-container {
+  position: relative;
+  background-image: url('http://data.vxk.cz/webom/hero-bg.png');
+  background-repeat: no-repeat;
+  background-position: right 20% top;
+  background-size: 70%;
+  background-clip: content-box;
+}
+.myhero-bluebox {
+  background: transparent url('http://data.vxk.cz/webom/hero-blue-bg.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100%;
+  background-clip: padding-box;
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}
+.myhero-content {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+  padding: 1em;
+}
+.myhero-content h1 {
+  width: 70%;
+  font-size: 16px;
+  line-height: 18px;
+  margin: .5em 0;
+  letter-spacing: -1.2px;
+}
+.myhero-content p {
+  font-size: 8px;
+  line-height: 10px;
+  letter-spacing: 0px;
+}
+
+@media screen and (min-width: $tablet) {
+  .myhero {
+    min-height: 70vh;
+  }
+  // .myhero-bluebox {
+  //   width: 40%;
+  // }
+  .myhero-content {
+    padding: 3em;
+  }  
+  .myhero-content h1 {
+    width: 70%;
+    font-size: 32px;
+    line-height: 36px;
+  }  
+  .myhero-content p {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .myhero {
+    min-height: 80vh;
+  }
+  // .myhero-content {
+  //   padding: 1em;
+  // }  
+  .myhero-content h1 {
+    width: 70%;
+    font-size: 46px;
+    line-height: 48px;
+  }  
+  .myhero-content p {
+    font-size: 28px;
+    line-height: 30px;
+  }
+}
+
+@media screen and (min-width: $widescreen) {
+  .myhero {
+    min-height: 90vh;
+  }
+  .myhero-content h1 {
+    width: 70%;
+    font-size: 60px;
+    line-height: 67px;
+  }  
+  .myhero-content p {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}
+
+@media screen and (min-width: $fullhd) {
+  .myhero {
+    min-height: 41vh;
+  }
+  .myhero-content h1 {
+    width: 70%;
+    font-size: 64px;
+    line-height: 79px;
+  }  
+  .myhero-content p {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}

@@ -103,7 +103,7 @@ export default {
     <DynamicForm :config="addFormConfig" :onSubmit="onAddedPage" />
   </b-modal>
   <b-modal size="xl" id="modal-sys" title="Sytemove soubory" hide-footer>
-    <SysBrowser :cfg="cfg" :onSelect="editSysItem">
+    <SysBrowser :cfg="cfg" :onSelect="editSysItem" />
   </b-modal>
 </div>
   `

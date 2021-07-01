@@ -9,7 +9,9 @@ const NODE_MODULES = path.resolve(path.join(__dirname, '../node_modules'))
 
 async function init () {
   process.env.DATABASE_URL = 'db.sqlite'
+  process.env.DOMAIN = 'pokus.cz'
   process.env.DATA_FOLDER = path.resolve(path.join(__dirname, '..', '.testweb'))
+  
   const Init = require('bbb-cms-api').default
   const apiServer = await Init()
 
@@ -20,7 +22,7 @@ async function init () {
     ui: false,
     middleware: [
       { route: '/api', handle: apiServer },
-      { route: '/data', handle: express.static(process.env.DATA_FOLDER) }
+      { route: '/data', handle: express.static(path.join(process.env.DATA_FOLDER, process.env.DOMAIN)) }
     ]
   })
   bs.watch(DEV_DIR + '/index.html').on('change', bs.reload)

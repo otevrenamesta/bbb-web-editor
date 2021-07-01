@@ -6,6 +6,16 @@ export function buildTreeData (pages) {
     if (existing && path.length > 1) {
       existing.children = existing.children || []
       _insert2Tree(node, existing.children, _.rest(path))
+    } else if (path.length > 1 && path[path.length - 1].length > 0) {
+      const folder = {
+        id: node.path,
+        name: path[0],
+        foldername: path[0],
+        collapsed: true,
+        children: []
+      }
+      subtree.push(folder)
+      _insert2Tree(node, folder.children, _.rest(path))
     } else {
       subtree.push({
         id: node.path,

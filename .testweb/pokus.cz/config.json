@@ -1,0 +1,22 @@
+{
+   "title": "Otevřená města",
+   "lang": "cs",
+   "twitter": null,
+   "github": "https://github.com/otevrenamesta",
+   "instagram": null,
+   "cdn": "http://data.vxk.cz/ts/wp-content/uploads",
+   "menu": [
+     {
+        "label": "O nás",
+        "link": "/o-nas/"
+     },
+     {
+        "label": "Projekty",
+        "link": "/projekty/"
+     },
+     {
+        "label": "Stát se členem",
+        "link": "/stat-se-clenem"
+     }
+   ]
+}

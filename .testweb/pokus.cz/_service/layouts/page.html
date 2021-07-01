@@ -1,0 +1,15 @@
+<div>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="title">{{data.title}}</h1>
+    </div>
+  </section>
+
+  <section v-for="(i, idx) in data.children" :key="idx" class="section">
+
+    <component :is="i.component" :data="i" />
+
+  </section>
+
+</div>

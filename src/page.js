@@ -54,7 +54,7 @@ export default {
   <div class="row">
     <div class="col-12">
       <b-breadcrumb>
-        <b-breadcrumb-item to="/web">Stránky</b-breadcrumb-item>
+        <b-breadcrumb-item :to="cfg.parent">Stránky</b-breadcrumb-item>
         <b-breadcrumb-item active>{{ $router.currentRoute.query.id }}</b-breadcrumb-item>
       </b-breadcrumb>
     </div>

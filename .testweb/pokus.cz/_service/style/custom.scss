@@ -1,0 +1,137 @@
+// 1. Import the initial variables
+@import "bulma/sass/utilities/initial-variables";
+
+// 2. Set your own initial variables
+// Update the blue shade, used for links
+$blue: #06bcef;
+// Add pink and its invert
+$pink: #ff8080;
+$pink-invert: #fff;
+$dark-blue: #0F0787;
+$light-blue: #E0E4FF;
+$my-yellow: #FFD919;
+$my-green: #19DE96;
+$dark-blue: #0F0787;
+$footer-background-color: white;
+$navbar-height: 4.5rem;
+
+// Update the sans-serif font family
+$defaultFont: "acumin-pro-wide";
+@import "./fonts";
+$family-primary: "acumin-pro-wide", $family-sans-serif;
+
+// 3. Set the derived variables
+// Use the new pink as the primary color
+$primary: $dark-blue;
+$primary-invert: $pink-invert;
+$link: $my-green;
+
+// // 4. Import the rest of Bulma
+@import "bulma/sass/utilities/_all";
+@import "bulma/sass/base/_all";
+@import "bulma/sass/elements/_all";
+@import "bulma/sass/form/_all";
+@import "bulma/sass/components/_all";
+@import "bulma/sass/grid/_all";
+@import "bulma/sass/helpers/_all";
+@import "bulma/sass/layout/_all";
+
+@import "./components/hero";
+@import "./components/projectSection";
+
+
+.footer .logo {
+  max-width: 10em;
+}
+.footer .socials {
+  font-size: 3em;
+}
+
+.basicinfo h2 {
+  margin: 2em 0;
+}
+.iconedList h3 {
+  text-transform: capitalize;
+}
+.basicinfo p {
+  font: normal normal 600 28px/36px $defaultFont;
+  letter-spacing: 0px;
+  color: #0F0787;
+}
+.basicinfo {
+  padding-right: 4em;
+}
+.partneri h2 {
+  margin-bottom: 1em;
+}
+.partneri img {
+  margin: 1em 0;
+}
+
+.iconedList h3 {
+  font: normal normal bold 14px/20px $defaultFont;
+  letter-spacing: 0.28px;
+  color: #19DE96;
+  margin-bottom: 0.5em;
+}
+
+.navbar-menu a {
+  font: normal normal 600 18px/36px $defaultFont;
+  letter-spacing: 0px;
+  color: #0F0787;
+}
+
+.mycontact h2 {
+  font: normal normal bold 50px/53px $defaultFont;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+  margin: 1em 0;
+}
+
+.mycontact ul {
+  background: transparent url('http://data.vxk.cz/webom/icon-pixel-arrow-green.svg') 0% no-repeat padding-box;
+  padding: 0.5em 0 0.5em 2em;
+  margin: 1em 0;
+}
+
+h2 {
+  color: #19DE96;
+  font-size: larger;
+}
+
+.mylightblue {
+  background: $light-blue;
+}
+.myyellow {
+  background: $my-yellow;
+}
+.mydarkblue {
+  background: $dark-blue;
+  color: white;
+}
+.mydarkblue a {
+  color: $my-green;
+}
+.mygreen {
+  background: $my-green;
+}
+.mygreen h2, h3 {
+  color: white;
+}
+.circle {
+  border-radius: 50%;
+}
+.basicinfo2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.basicinfo2 .MDText {
+  width: 75%;
+}
+.basicinfo2 p {
+  font: normal normal bold 16px/20px $defaultFont;
+  letter-spacing: 0px;
+  color: #5A5122;
+  margin-bottom: 1em;
+}

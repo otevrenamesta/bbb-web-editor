@@ -1,0 +1,26 @@
+title: Titulní stránka
+desc: stranka pro TS
+updated_at: 2021-01-18T12:47:37.254Z
+layout: default
+children:
+  - component: composition
+    class: container>columns myhero-container
+    children:
+      - component: hero
+        title: Partner pro digitalizaci samospráv
+        content: |
+          Specializujeme se na technickou, právní 
+          a metodickou expertízu&nbsp;v oblasti digitalizace samospráv.
+  - component: composition
+    class: container>columns is-desktop mylightblue p-6
+    children:
+      - component: composition
+        class: column is-three-quarters
+        children:
+          - component: MDText
+            class: basicinfo
+            content: |
+              Specializujeme se na technickou, právní a metodickou
+              expertízu v oblasti digitalizace samospráv.
+
+              Máme bohaté zkušenosti s budováním open source aplikací pro samosprávy

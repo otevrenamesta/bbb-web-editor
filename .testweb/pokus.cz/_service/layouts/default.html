@@ -1,0 +1,7 @@
+<div>
+  <section v-for="(i, idx) in data.children" :key="idx" class="section">
+
+    <component :is="i.component" :data="i" />
+
+  </section>
+</div>

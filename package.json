@@ -1,0 +1,19 @@
+{
+  "name": "bbb-web-editor",
+  "version": "0.1.0",
+  "author": "Vaclav Klecanda <vencax77@gmail.com> (http://vxk.cz)",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=debug node -r esm --inspect dev/server.js",
+    "build": "rollup src/main.js --file dist/bundle.js --format iife --name initMUAdmin"
+  },
+  "devDependencies": {
+    "bootstrap-vue-dynamic-form": "github:vencax/bootstrap-vue-dynamic-form",
+    "browser-sync": "^2.26.14",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "bbb-cms-api": "otevrenamesta/bbb-cms-api",
+    "rollup": "^1.29.1"
+  }
+}
