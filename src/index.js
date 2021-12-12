@@ -17,18 +17,18 @@ export default {
       treeData: null
     }
   },
-  props: ['cfg'],
+  props: ['cfg', 'query', 'website'],
   async created () {
-    const route = this.$router.currentRoute
-    if (route.query.sysItem) {
-      this.$data.sysItem = route.query.sysItem
+    // if (route.query.sysItem) {
+    //   this.$data.sysItem = route.query.sysItem
+    //   return
+    // }
+    if (this.query.id) {
+      this.$data.curr = this.query.id
       return
     }
-    if (route.query.id) {
-      this.$data.curr = route.query.id
-      return
-    }
-    const res = await axios.get(this.$props.cfg.routesUrl)
+    const url = `${this.cfg.webdata_url}/${this.website}/_service/routes.json`
+    const res = await axios.get(url)
     this.$data.pages = res.data
     this.$data.treeData = buildTreeData (this.$data.pages)
     this.$data.ready = true

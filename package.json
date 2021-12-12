@@ -10,10 +10,10 @@
   },
   "devDependencies": {
     "bootstrap-vue-dynamic-form": "github:vencax/bootstrap-vue-dynamic-form",
+    "modularni-urad-admin-components": "github:modularni-urad/admin-components",
     "browser-sync": "^2.26.14",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "bbb-cms-api": "otevrenamesta/bbb-cms-api",
     "rollup": "^1.29.1"
   }
 }
