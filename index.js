@@ -1,9 +1,9 @@
 import WebEditor from './src/index.js'
 import { ROUTE_NAMES } from './consts.js'
 
-export function createMenu (user, cfg) {
-  return cfg.websites && cfg.websites.length > 0 && { 
-    label: 'webové stránky', children: cfg.websites.filter(i => {
+export function createMenu (user) {
+  return this.websites && this.websites.length > 0 && { 
+    label: 'webové stránky', children: this.websites.filter(i => {
       return user.groups.indexOf(i.webmastergroup) >= 0
     }).map(i => {
       return { label: i.domain, to: { name: ROUTE_NAMES.editor } }
