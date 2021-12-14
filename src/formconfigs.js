@@ -12,7 +12,7 @@ const _confs = {
 export default function manager (url) {
   
   function _getComponent(componentName) {
-    const u = `${url}_service/configs/${componentName}.yaml`
+    const u = `${url}/_service/configs/${componentName}.yaml`
     _confs[componentName] = axios.get(u)
       .then(res => {
         _confs[componentName] = jsyaml.load(res.data)
