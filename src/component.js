@@ -4,10 +4,11 @@ export default {
     onSubmit: async function (item) {
       if (!item) return
       const data = _.omit(this.$props.data, ['id', 'component'])
+      const url = `${this.apiUrl}/${this.$router.currentRoute.params.website}`
       Object.assign(data, item)
       await this.$store.dispatch('send', {
         method: 'put',
-        url: this.apiUrl,
+        url,
         data: item,
         params: {
           id: this.$props.data.id,
