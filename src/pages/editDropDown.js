@@ -2,10 +2,10 @@ export default {
   props: ['item', 'events'],
   computed: {
     showDelete: function () {
-      return this.$props.item.children === undefined
+      return false //this.$props.item.type === 'file'
     },
     showEdit: function () {
-      return this.$props.item.file !== undefined
+      return this.$props.item.type === 'file'
     }
   },
   template: `

@@ -1,39 +1,65 @@
 
-export function buildTreeData (pages) {
-
-  function _insert2Tree (node, subtree, path) {
-    const existing = _.find(subtree, i => i.foldername === path[0])
-    if (existing && path.length > 1) {
-      existing.children = existing.children || []
-      _insert2Tree(node, existing.children, _.rest(path))
-    } else if (path.length > 1 && path[path.length - 1].length > 0) {
-      const folder = {
-        id: node.path,
-        name: path[0],
-        foldername: path[0],
-        collapsed: true,
-        children: []
-      }
-      subtree.push(folder)
-      _insert2Tree(node, folder.children, _.rest(path))
-    } else {
-      subtree.push({
-        id: node.path,
-        name: path[0],
-        file: node.data,
-        foldername: path[0],
-        collapsed: true
-      })
-    }
+export function createItem (path, name, type) {
+  return {
+    loading: false,
+    loaded: false,
+    path, name, type,
+    children: []
   }
-
-  const sorted = _.sortBy(pages, 'path')
-  const tree = [{ 
-    id: '/', file: 'index.yaml', name: '/ - titulka', foldername: '', collapsed: false 
-  }]
-  _.map(_.rest(sorted), i => {
-    const parts = i.path.split('/')
-    _insert2Tree(i, tree, parts)
-  })
-  return tree
 }
+
+export async function loadfolder (self, path, folderInfo) {
+  folderInfo.loading = true
+  const u = self.cfg.webdata_url + '/' + self.website + '/pages' + path
+  const contentReq = await axios.get(u)
+  contentReq.data.sort((a,b) => a.name.localeCompare(b.name)).map(i => {
+    if (i.type == 'directory') {
+      const item = createItem(path, i.name, i.type)
+      folderInfo.children.push(item)
+    } else {
+      const item = createItem(path, i.name, i.type)
+      folderInfo.children.push(item)
+    }
+  })
+  folderInfo.loaded = true
+  folderInfo.loading = false
+}
+export function unloadFolder (self, f) {
+  f.children.length = 0
+  f.loaded = false
+}
+
+const tus = import('https://cdn.jsdelivr.net/npm/tus-js-client@2.3.1/dist/tus.js')
+export async function upload (filename, content, self) {
+  const tokenReq = await self.$store.dispatch('send', { 
+    method: 'get', 
+    url: self.cfg.mediaurl + '/acl/token'
+  })
+  await tus
+  
+  const file = new File([content], 'sample.txt', {
+    lastModified: new Date(2020, 1, 1),
+    type: "text/plain"
+  })
+  return new Promise((resolve, reject) => {
+    var options = {
+      endpoint: self.cfg.uploadApi,
+      metadata: {
+        filename: `${tokenReq.data.path}/${filename}`,
+        Bearer: tokenReq.data.token
+      },
+      uploadSize: content.length,
+      onError (error) {
+        reject(error)
+      },
+      onSuccess () {
+        resolve(filename.split('/').slice(1).join('/'))
+      }
+    }
+    
+    var upload = new window.tus.Upload(file, options)
+    upload.start()
+  })
+}
+
+

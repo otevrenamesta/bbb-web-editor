@@ -1,5 +1,3 @@
-import PageActions from './page/editDropDown.js'
-
 const pageList = {
   props: ['item', 'events', 'sett'],
   computed: {
@@ -10,7 +8,6 @@ const pageList = {
       return this.$props.item[this.$props.sett.labelProp || 'name']
     }
   },
-  components: { PageActions },
   template: `
   <div>
     <div class="clearfix">
@@ -18,12 +15,12 @@ const pageList = {
       <i class="fas" v-if="item.children" @click="events.toggle(item)"
         :class="item.collapsed ? 'fa-plus-square' : 'fa-minus-square'"></i>
 
-      <a v-if="item.children" href="javascript:void(0);" @click="events.toggle(item)">
+      <a v-if="item.children" @click.prevent="events.toggle(item)">
         {{ label }}
       </a>
       <span v-else>{{ label }}</span>
 
-      <div v-if="sett.variant === 'component'" class="float-right">
+      <div class="float-right">
         <b-dropdown v-if="item.formConfig !== null" right dropright>
           <b-dropdown-item variant="primary" @click="events.componentEdit(item)">
             upravit <i class="fas fa-edit"></i>
@@ -31,7 +28,6 @@ const pageList = {
         </b-dropdown>
       </div>
 
-      <PageActions v-else :events="events" :item="item" />
     </div>
 
     <div class="ml-4" v-if="renderChildren">

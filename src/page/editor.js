@@ -16,7 +16,7 @@ export default {
   async created () {
     const siteWebdata = `${this.cfg.webdata_url}/${this.$router.currentRoute.params.website}`
     const getFormconfig = FormconfigManager(siteWebdata)
-    const pageUrl = `${siteWebdata}/${this.$router.currentRoute.query.id}`
+    const pageUrl = `${siteWebdata}/pages/${this.$router.currentRoute.query.id}`
     const dataReq = await axios.get(pageUrl)
     const data = jsyaml.load(dataReq.data)
     const formConfiPromises = []
@@ -48,6 +48,16 @@ export default {
       node.collapsed = !node.collapsed
     }
   },
+  computed: {
+    parentRoute: function () {
+      return {
+        name: 'webeditor',
+        params:{
+          website: this.$router.currentRoute.params.website
+        }
+      }
+    }
+  },
   components: {
     'b-tree-view': MyTreeView, ComponentEditor
   },
@@ -55,7 +65,9 @@ export default {
   <div class="row">
     <div class="col-12">
       <b-breadcrumb>
-        <b-breadcrumb-item :to="cfg.parent">Stránky</b-breadcrumb-item>
+        <b-breadcrumb-item :to="parentRoute">
+          {{ $router.currentRoute.params.website }}
+        </b-breadcrumb-item>
         <b-breadcrumb-item active>{{ $router.currentRoute.query.id }}</b-breadcrumb-item>
       </b-breadcrumb>
     </div>
@@ -72,7 +84,7 @@ export default {
 
     <div class="col-9">
       <ComponentEditor v-if="edited" 
-        :apiUrl="cfg.apiUrl"
+        :cfg="cfg"
         :data="edited" 
         :pagefile="$router.currentRoute.query.id" />
     </div>

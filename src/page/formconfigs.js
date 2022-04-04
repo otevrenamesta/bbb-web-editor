@@ -12,7 +12,7 @@ const _confs = {
 export default function manager (url) {
   
   function _getComponent(componentName) {
-    const u = `${url}/_service/configs/${componentName}.yaml`
+    const u = `${url}/configs/${componentName}.yaml`
     _confs[componentName] = axios.get(u)
       .then(res => {
         _confs[componentName] = jsyaml.load(res.data)
@@ -36,20 +36,3 @@ export const composition = [
     "label": "Classes"
   }
 ]
-
-export function newPageConfig (pageOptions) {
-  return [
-    {
-      name: 'path',
-      component: 'dyn-input',
-      label: "cesta (URL), např. po vyplnění 'strana1' pak bude URL www.muj.web/strana1",
-      rules: 'required'
-    },
-    {
-      name: "parent",
-      component: "dyn-select",
-      options: pageOptions,
-      label: 'rodič'
-    }
-  ]
-}

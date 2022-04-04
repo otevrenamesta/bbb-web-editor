@@ -1,36 +1,24 @@
-/* global axios, API, _ */
-import PageEditor from './page.js'
-import { newPageConfig } from './formconfigs.js'
-import { buildTreeData } from './utils.js'
-import MyTreeView from './treeView.js'
-import SysBrowser from './system/browser.js'
-import SysEditor from './system/editor.js'
+import PageEditor from './page/editor.js'
+import { newPageConfig } from './pages/formconfig.js'
+import { loadfolder, createItem, unloadFolder } from './utils.js'
+import PageTreeView from './pages/treeView.js'
 
 export default {
   data: () => {
     return {
-      ready: false,
-      sysItem: null,
-      pages: null,
       curr: null,
+      ready: false,
       loading: false,
-      treeData: null
+      tree: createItem('/', 'root', 'directory')
     }
   },
   props: ['cfg', 'query', 'website'],
   async created () {
-    // if (route.query.sysItem) {
-    //   this.$data.sysItem = route.query.sysItem
-    //   return
-    // }
     if (this.query.id) {
       this.$data.curr = this.query.id
       return
     }
-    const url = `${this.cfg.webdata_url}/${this.website}/_service/routes.json`
-    const res = await axios.get(url)
-    this.$data.pages = res.data
-    this.$data.treeData = buildTreeData (this.$data.pages)
+    loadfolder(this, '/', this.tree)
     this.$data.ready = true
   },
   computed: {
@@ -39,9 +27,6 @@ export default {
         return { text: i.path, value: i.data }
       })
       return newPageConfig(parentOptions)
-    },
-    showSysConfig: function () {
-      return this.$data.sysItem && this.$store.getters.isMember('webmaster')
     }
   },
   methods: {
@@ -70,40 +55,26 @@ export default {
       this.$bvModal.hide('modal-add')
     },
     editPage: async function (node) {
-      this.$router.push({ path: this.$router.currentRoute.path, query: { id: node.file } })
+      this.$router.push({ 
+        path: this.$router.currentRoute.path, query: { 
+          id: node.path + node.name
+        } 
+      })
     },
-    editSysItem: function (file, typ) {
-      this.$router.push({ path: this.$router.currentRoute.path, query: { 
-        sysItem: `${typ}__${file}` 
-      } })
-    },
-    toggle: function (node) {
-      node.collapsed = !node.collapsed
+    toggle: function (f) {
+      f.loaded ? unloadFolder(this, f) : loadfolder(this, f.path + '/' + f.name, f)
     }
   },
-  components: {
-    'b-tree-view': MyTreeView,
-    PageEditor,
-    SysBrowser, 
-    SysEditor
-  },
+  components: { PageTreeView, PageEditor },
   template: `
 <PageEditor v-if="curr" :data="curr" :cfg="cfg" />
-<SysEditor v-else-if="showSysConfig" :data="sysItem" :cfg="cfg" />
 <div v-else>
-  <i v-if="loading" class="fas fa-spinner fa-spin"></i>
-  <b-button v-b-modal.modal-sys v-if="$store.getters.isMember('webmaster')">
-    Systemové komponenty
-  </b-button>
-  <b-tree-view v-if="ready" class="m-2"
-    :data="treeData" :sett="{}"
+  <PageTreeView class="m-2"
+    :data="tree" :sett="{}"
     :events="{toggle, editPage, deletePage, addPage}"
   />
   <b-modal v-if="ready" size="xl" id="modal-add" title="Upravit" hide-footer>
     <DynamicForm :config="addFormConfig" :onSubmit="onAddedPage" />
-  </b-modal>
-  <b-modal size="xl" id="modal-sys" title="Sytemove soubory" hide-footer>
-    <SysBrowser :cfg="cfg" :onSelect="editSysItem" />
   </b-modal>
 </div>
   `
