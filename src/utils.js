@@ -30,30 +30,26 @@ export function unloadFolder (self, f) {
 }
 
 const tus = import('https://cdn.jsdelivr.net/npm/tus-js-client@2.3.1/dist/tus.js')
-export async function upload (filename, content, self) {
-  const tokenReq = await self.$store.dispatch('send', { 
-    method: 'get', 
-    url: self.cfg.mediaurl + '/acl/token'
-  })
+export async function upload (filename, content, token, self) {
   await tus
   
   const file = new File([content], 'sample.txt', {
-    lastModified: new Date(2020, 1, 1),
+    lastModified: new Date(),
     type: "text/plain"
   })
   return new Promise((resolve, reject) => {
     var options = {
       endpoint: self.cfg.uploadApi,
       metadata: {
-        filename: `${tokenReq.data.path}/${filename}`,
-        Bearer: tokenReq.data.token
+        filename,
+        Bearer: token
       },
-      uploadSize: content.length,
+      uploadSize: file.size,
       onError (error) {
         reject(error)
       },
       onSuccess () {
-        resolve(filename.split('/').slice(1).join('/'))
+        resolve()
       }
     }
     

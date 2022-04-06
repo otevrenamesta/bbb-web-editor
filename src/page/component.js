@@ -6,18 +6,18 @@ export default {
     onSubmit: async function (item) {
       if (!item) return
       const data = _.omit(this.$props.data, ['id', 'component'])
-      const url = `${this.cfg.apiUrl}/changedpage`
-      const file = `${this.cfg.webdata_url}/${this.$router.currentRoute.params.website}/pages${this.pagefile}`
+      const website = this.$router.currentRoute.params.website
+      const url = `${this.cfg.apiUrl}/${website}/changedpage`
       Object.assign(data, item)
       const res = await this.$store.dispatch('send', {
         method: 'put',
         url,
         data: item,
-        params: { id: this.$props.data.id, file }
+        params: { id: this.$props.data.id, file: this.pagefile }
       })
-      const fname = '_webdata/' + this.$router.currentRoute.params.website
-        + `/pages${this.pagefile}`
-      const r = await upload(fname, res.data.content, this)
+      const fname = res.data.path + this.pagefile
+      await upload(fname, res.data.content, res.data.token, this)
+      this.$store.dispatch('toast', { message: `uloženo` })
     }
   },
   template: `
