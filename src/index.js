@@ -57,7 +57,7 @@ export default {
     editPage: async function (node) {
       this.$router.push({ 
         path: this.$router.currentRoute.path, query: { 
-          id: node.path + node.name
+          id: (node.path + '/' + node.name).replace(/\/\//, '/')
         } 
       })
     },
