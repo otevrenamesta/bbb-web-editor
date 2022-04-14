@@ -16,7 +16,8 @@ export default {
   async created () {
     const siteWebdata = `${this.cfg.webdata_url}/${this.$router.currentRoute.params.website}`
     const getFormconfig = FormconfigManager(siteWebdata)
-    const pageUrl = `${siteWebdata}/pages/${this.$router.currentRoute.query.id}`
+    const ver = new Date().toISOString()
+    const pageUrl = `${siteWebdata}/pages/${this.$router.currentRoute.query.id}?ver=${ver}`
     const dataReq = await axios.get(pageUrl)
     const data = jsyaml.load(dataReq.data)
     const formConfiPromises = []
