@@ -57,6 +57,12 @@ export default {
           website: this.$router.currentRoute.params.website
         }
       }
+    },
+    link2page: function () {
+      const m = this.$router.currentRoute.query.id.match(/^(.*)\/(.+).yaml$/)
+      return 'https://' + this.$router.currentRoute.params.website
+        + m[1] + '/' + (m[2] === 'index' ? '' : m[2])
+        + `?ver=${new Date().toISOString()}`
     }
   },
   components: {
@@ -76,6 +82,7 @@ export default {
     <div v-if="ready" class="col-3">
       <h2>{{ data.title }}</h2>
       <p>{{ data.desc }}</p>
+      <a :href="link2page" target="_blank">vidět aktuální stav</a>
       <h4>Komponenty</h4>
       <b-tree-view 
         :sett="{labelProp: 'component', variant: 'component'}" 
