@@ -4,7 +4,7 @@ import { ROUTE_NAMES } from './consts.js'
 export function createMenu (user) {
   const children = this.websites && this.websites.length > 0 
     && this.websites.filter(i => {
-      return user.groups.indexOf(i.webmastergroup) >= 0
+      return user.groups.indexOf(i.webmastersGroup) >= 0
     }).map(i => {
       return { label: i.domain, to: { 
         name: ROUTE_NAMES.editor, 
